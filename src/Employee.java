@@ -13,16 +13,73 @@
         4. Найти сотрудника с максимальной зарплатой.
         5. Подсчитать среднее значение зарплат (можно использовать для этого метод из пункта b).
         6. Получить Ф. И. О. всех сотрудников (вывести в консоль).*/
-public class Main {
+public class Employee {
+    private String firstName;
+    private String surname;
+    private String middleName;
+    int employeeDepartment;
+    private  int id;
+    double salary;
 
-    public static void main(String[] args) {
-        Employee mishaGorchkovAlekseyevich = new Employee("misha", "Gorchkov","Alekseyevich", 1, 45_000);
-        Employee mishaGorchkovAlekseyevich2 = new Employee("misha", "Gorchkov","Alekseyevich", 1, 380_000);
-        Employee mishaGorchkovAlekseyevich3 = new Employee("misha", "Gorchkov","Alekseyevich", 1, 79_045);
-        Employee mishaGorchkovAlekseyevich4 = new Employee("misha", "Gorchkov","Alekseyevich", 1, 15_000);
-        System.out.println(mishaGorchkovAlekseyevich);
-        System.out.println(mishaGorchkovAlekseyevich2);
-        System.out.println(mishaGorchkovAlekseyevich3);
-        System.out.println(mishaGorchkovAlekseyevich4);
+    public Employee(String firstName, String surname, String middleName, int employeeDepartment, double salary) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.middleName = middleName;
+        this.employeeDepartment = employeeDepartment;
+        this.salary = salary;
     }
+
+    Employee() {
+        id++;
+    }
+    public void counter(int id) {
+        id++;
+        this.id = id;
+    }
+
+    public boolean employeeDepartment() {
+        if (1 <= employeeDepartment && employeeDepartment <= 5) {
+            return true;
+        } else
+            System.out.println("Указан некорректный отдел, укажите от 1 до 5");
+        return false;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public int getEmployeeDepartment() {
+        return employeeDepartment;
+    }
+
+    public void setEmployeeDepartment(int employeeDepartment) {
+        this.employeeDepartment = employeeDepartment;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "Имя='" + firstName + '\'' +
+                ", Фамилия='" + surname + '\'' +
+                ", Отчество='" + middleName + '\'' +
+                ", Отдел=" + employeeDepartment +
+                ", id=" + id +
+                ", Зарплата=" + salary +
+                '}';
+    }
+
 }
+
