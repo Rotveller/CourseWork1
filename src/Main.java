@@ -1,28 +1,79 @@
-/*
-1. Создать класс Employee, который содержит информацию о Ф.И.О., отделе и зарплате сотрудника. Отделы для простоты должны быть названы от 1 до 5.
-        2. Добавить статическую переменную-счетчик, которая будет отвечать за id.+
-        3. Добавить в класс Employee поле id, которое проставляется из счетчика, а затем счетчик увеличивает свое значение.
-        4. Добавить возможность получать значения полей из Employee (геттеры) для всех полей.+
-        5. Добавить возможность устанавливать значения полей отдела и зарплаты (сеттеры).+
-        6. По умолчанию все поля должны передавать через конструктор (кроме id) и заполняться в нем (включая id, который нужно получить из счетчика).
-        7. Создать внутри класса с методом main поле типа Employee[10], которое будет выполнять роль «хранилища» для записей о сотрудниках.
-        8. Создать статические методы, которые будут взаимодействовать с массивом ипредоставлять результат:
-        1. Получить список всех сотрудников со всеми имеющимися по ним данными (вывести в консоль значения всех полей (toString)).
-        2. Посчитать сумму затрат на зарплаты в месяц.
-        3. Найти сотрудника с минимальной зарплатой.
-        4. Найти сотрудника с максимальной зарплатой.
-        5. Подсчитать среднее значение зарплат (можно использовать для этого метод из пункта b).
-        6. Получить Ф. И. О. всех сотрудников (вывести в консоль).*/
-public class Main {
+import java.util.Random;
 
-    public static void main(String[] args) {
-        Employee mishaGorchkovAlekseyevich = new Employee("misha", "Gorchkov","Alekseyevich", 1, 45_000);
-        Employee mishaGorchkovAlekseyevich2 = new Employee("misha", "Gorchkov","Alekseyevich", 1, 380_000);
-        Employee mishaGorchkovAlekseyevich3 = new Employee("misha", "Gorchkov","Alekseyevich", 1, 79_045);
-        Employee mishaGorchkovAlekseyevich4 = new Employee("misha", "Gorchkov","Alekseyevich", 1, 15_000);
-        System.out.println(mishaGorchkovAlekseyevich);
-        System.out.println(mishaGorchkovAlekseyevich2);
-        System.out.println(mishaGorchkovAlekseyevich3);
-        System.out.println(mishaGorchkovAlekseyevich4);
+class Main {
+
+    public static final Employee[] EMPLOYEES = new Employee[10];
+
+    public static void main(String arg[]) {
+        fillEmployees();
+        printAllInformation();
+        System.out.println("Общие затраты организации на ЗП сотрудникам составляет = " + totalSalaries());
+        System.out.println("СОтрудник с максимальной зарплатой:"+ findEmployeeWithMaxSalary());
+        System.out.println("СОтрудник с минимальной зарплатой:"+findEmployeeWithMinSalary());
+        System.out.println("Cредняя зарплата в организации:"+findAverageSalary());
+        printFullName();
+    }
+
+    private static void fillEmployees() {
+        Random random = new Random();
+        for (int i = 0; i < EMPLOYEES.length; i++) {
+            EMPLOYEES[i] = new Employee(
+                    "Сотрудник" + (i + 1),
+                    random.nextInt(5 - 1) + 1,
+                    random.nextInt(90_000 - 45_000) + 45_000
+            );
+
+        }
+    }
+
+    private static int totalSalaries() {
+        int sum = 0;
+        for (Employee employee : EMPLOYEES) {
+            sum += employee.getSalary();
+        }
+        return sum;
+    }
+
+    private static void printAllInformation() {
+        for (Employee employees : EMPLOYEES) {
+            System.out.println(employees);
+        }
+    }
+
+    private static Employee findEmployeeWithMinSalary() {
+        int min = Integer.MAX_VALUE;
+        Employee employee = null;
+        for (Employee i : EMPLOYEES) {
+            if (i.getSalary() < min) {
+                min = i.getSalary();
+                employee=i;
+
+            }
+        }
+        return employee;
+    }
+    private static Employee findEmployeeWithMaxSalary() {
+        int max = Integer.MIN_VALUE;
+        Employee employee = null;
+        for (Employee i : EMPLOYEES) {
+            if (i.getSalary() > max) {
+                max = i.getSalary();
+                employee=i;
+
+            }
+        }
+        return employee;
+    }
+
+    private static double findAverageSalary() {
+        return totalSalaries() / (double) EMPLOYEES.length;
+    }
+
+    private static void printFullName() {
+        for (Employee employee :
+                EMPLOYEES) {
+            System.out.println(employee.getFullName());
+        }
+
     }
 }
